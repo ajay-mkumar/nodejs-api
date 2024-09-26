@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const asyncHandler = require('../middleware/asyncHandler');
 
 const User = sequelize.define('User1', {
     firstName: {
@@ -12,8 +11,8 @@ const User = sequelize.define('User1', {
     },
     email: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false,
-        unique: true
     },
     password: {
         type: DataTypes.STRING,
@@ -22,8 +21,9 @@ const User = sequelize.define('User1', {
     isAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
-    }
+    },
 }, {
+    tableName: 'users',
     timestamps: true
 });
 
