@@ -17,7 +17,7 @@ const fetchExpense = asyncHandler(async(req, res) => {
 })
 
 const addExpense = asyncHandler(async(req, res) => {
-    const { expense } = req.body;
+    const { expense, createdAt } = req.body;
 
     const userId = req.user.id;
     if (!userId) {
@@ -26,7 +26,8 @@ const addExpense = asyncHandler(async(req, res) => {
 
     await expenseModel.create({
         userId: userId,
-        expenses: expense
+        expenses: expense,
+        createdAt: createdAt
     });
 
     res.status(200).send('Expense added');
@@ -34,7 +35,7 @@ const addExpense = asyncHandler(async(req, res) => {
 
 const editExpense = asyncHandler(async(req, res) => {
     const { expenseId } = req.params;
-    const { expense } = req.body;
+    const { expense, createdAt } = req.body;
     const expenseData = await expenseModel.findOne({
         where:
         {
@@ -48,6 +49,7 @@ const editExpense = asyncHandler(async(req, res) => {
     }
 
     if (expense) expenseData.expenses = expense;
+    if (createdAt) expenseData.createdAt = createdAt;
     await expenseData.save();
 
     res.status(202).send('Expense updated!')
