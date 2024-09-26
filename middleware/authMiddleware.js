@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const userModel = require('../model/userModel');
 const asyncHandler = require('../middleware/asyncHandler');
-const { UnknownConstraintError } = require('sequelize');
 
 const JWT_TOKEN = process.env.JWT_SECRET;
 

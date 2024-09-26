@@ -55,7 +55,6 @@ const authUser = asyncHandler(async (req, res) => {
 })
 
 const updateUser = asyncHandler(async(req, res) => {
-    console.log(req.user.id)
     const userId = req.user.id;
 
     const {firstName, lastName, email, isAdmin} = req.body;
