@@ -1,4 +1,4 @@
-const { DataTypes} = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const asyncHandler = require('../middleware/asyncHandler');
 
@@ -14,14 +14,25 @@ const User = sequelize.define('User1', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    isAdmin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     timestamps: true
 });
 
-(async() => {
-    await sequelize.sync({force: true});
-    console.log('database and table are created');
-})();
-
+sequelize.sync({ alter: true })
+    .then(() => {
+        console.log('Database synced!');
+    })
+    .catch((err) => {
+        console.log(`sync error ${err}`);
+    })
+    
 module.exports = User;
