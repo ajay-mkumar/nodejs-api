@@ -48,7 +48,7 @@ const authUser = asyncHandler(async (req, res) => {
     const token = jwt.sign({ user }, JWT_TOKEN, { expiresIn: '1h' });
     res.cookie('token', token, {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV != 'dev',
         maxAge: 36000000
     })
     res.json({ message: 'user logged in' });
